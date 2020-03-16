@@ -1,0 +1,30 @@
+{
+  "name": "to_do_manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^9.7.4",
+    "babel-preset-env": "^1.7.0",
+    "node-sass": "^4.13.1"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "overrideBrowserslist": [
+          "> 1%",
+          "last 4 versions"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3"
+  }
+}

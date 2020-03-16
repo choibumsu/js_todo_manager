@@ -1,0 +1,26 @@
+@charset "utf-8";
+@import 'variables';
+
+@mixin flex-box($align, $justify, $direction: row, $wrap: nowrap) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+}
+
+@mixin custom-box($width, $height, $background-color: $main-color, $radius: 2px) {
+    border: none;
+    background-color: $background-color;
+    width: $width;
+    height: $height;
+    margin: 0 auto;
+    border-radius: $radius;
+}
+
+@mixin font-text($size: 16px, $color:black, $family: $main-font, $weight:normal) {
+    font-size: $size;
+    color: $color;
+    font-family: $family;
+    font-weight: $weight;
+}
