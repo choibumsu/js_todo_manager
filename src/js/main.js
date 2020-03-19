@@ -8,7 +8,6 @@ const setLocalStorage = () => {
 
     columns.forEach(column => {
         const cateogoryTitle = column.querySelector(".category").value;
-
         const cards = column.querySelectorAll(".card");
 
         var todoList = [];
@@ -16,44 +15,14 @@ const setLocalStorage = () => {
             const title = card.querySelector(".title").value;
             const description = card.querySelector(".description").value;
 
-            const todo = {
-                title,
-                description
-            };
-
-            todoList.push(todo);
+            todoList.push({ title, description });
         })
-
         todoLists[cateogoryTitle] = todoList;
     });
-
     localStorage.TODO_LISTS = JSON.stringify(todoLists);
 }
 
-/* */
-const addClickHandler = event => {
-    const modalContainer = document.querySelector(".modal-container");
-    const body = document.querySelector("body");
-
-    modalContainer.style.top = `${window.scrollY}px`;
-    modalContainer.classList.remove("dp-none");
-    body.classList.add("stop-scroll");
-
-    var selectBox = document.querySelector(".category-select");
-    selectBox.innerText = "";
-
-    const categories = document.querySelectorAll(".category");
-    categories.forEach(category => {
-        var optionTag = customCreateElem("option", "", "", category.value);
-        selectBox.appendChild(optionTag);
-    })
-
-    const optionValue = event.target.parentNode.querySelector(".category").value;
-    selectBox.value = optionValue;
-};
-
-const categoryAddBtn = document.querySelector(".category-add-btn");
-categoryAddBtn.addEventListener("click", event => {
+const addCategoryHandler = () => {
     const categoryTitle = document.querySelector(".category-title");
     const categories = document.querySelectorAll(".category");
 
@@ -70,16 +39,14 @@ categoryAddBtn.addEventListener("click", event => {
     }
 
     const column = createColumn(categoryTitle.value);
-
     const todoContainer = document.querySelector(".todo-container");
     todoContainer.appendChild(column);
 
     categoryTitle.value = "";
 
     setLocalStorage();
-})
+}
 
-/* */
 const closeModal = () => {
     const modalContainer = document.querySelector(".modal-container");
     const body = document.querySelector("body");
@@ -88,11 +55,7 @@ const closeModal = () => {
     body.classList.remove("stop-scroll");
 }
 
-const modalCancelBtn = document.querySelector(".cancel-btn");
-modalCancelBtn.addEventListener("click", closeModal);
-
-const saveBtn = document.querySelector(".save-btn");
-saveBtn.addEventListener("click", event => {
+const saveCardHandler = () => {
     const titleInput = document.querySelector(".modal input");
     const descTextarea = document.querySelector(".modal textarea");
 
@@ -113,7 +76,7 @@ saveBtn.addEventListener("click", event => {
 
     setLocalStorage();
     closeModal();
-});
+}
 
 const customCreateElem = (tagName, className = "", value = "", innerText = "", event = "", eventHandler = "") => {
     var element = document.createElement(tagName);
@@ -125,7 +88,6 @@ const customCreateElem = (tagName, className = "", value = "", innerText = "", e
     return element;
 }
 
-/* */
 const deleteCardHandler = (event) => {
     var target = event.target;
     while (target.classList.contains("card") == false)
@@ -157,7 +119,6 @@ const createCard = (titleValue, descriptionValue) => {
     return card;
 }
 
-/* */
 const setCategoryTitle = (event) => {
     if (event.target.value == "") {
         var column = event.target;
@@ -167,6 +128,27 @@ const setCategoryTitle = (event) => {
     }
     setLocalStorage();
 }
+
+const addClickHandler = event => {
+    const modalContainer = document.querySelector(".modal-container");
+    const body = document.querySelector("body");
+
+    modalContainer.style.top = `${window.scrollY}px`;
+    modalContainer.classList.remove("dp-none");
+    body.classList.add("stop-scroll");
+
+    var selectBox = document.querySelector(".category-select");
+    selectBox.innerText = "";
+
+    const categories = document.querySelectorAll(".category");
+    categories.forEach(category => {
+        var optionTag = customCreateElem("option", "", "", category.value);
+        selectBox.appendChild(optionTag);
+    })
+
+    const optionValue = event.target.parentNode.querySelector(".category").value;
+    selectBox.value = optionValue;
+};
 
 const createColumn = (categoryTitle) => {
     const column = customCreateElem("div", "column");
@@ -198,12 +180,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const todoContainer = document.querySelector(".todo-container");
         todoContainer.appendChild(column);
+
+        const saveBtn = document.querySelector(".save-btn");
+        saveBtn.addEventListener("click", saveCardHandler);
+
+        const modalCancelBtn = document.querySelector(".cancel-btn");
+        modalCancelBtn.addEventListener("click", closeModal);
+
+        const categoryAddBtn = document.querySelector(".category-add-btn");
+        categoryAddBtn.addEventListener("click", addCategoryHandler);
     }
 })
 
 window.onload = () => {
     const descriptions = document.querySelectorAll(".description");
-
     descriptions.forEach(description => {
         description.style.height = (description.scrollHeight) + "px";
     })

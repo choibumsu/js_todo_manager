@@ -14,7 +14,6 @@ textarea:focus, input:focus, select:focus{
 input, textarea {
     background-color: unset;
     border: none;
-    text-align: center;
 }
 
 nav {
@@ -64,6 +63,7 @@ nav {
 
             .category {
                 @include font-text($color: white);
+                text-align: center;
             }
 
             img {
@@ -85,6 +85,7 @@ nav {
                 $L-padding: 20px;
                 width: calc(100% - #{$L-padding} * 2);
                 padding: 0 $L-padding;
+                text-align: center;
             }
 
             .title {
@@ -179,7 +180,7 @@ nav {
     }
 }
 
-.delete-btn, .add-btn {
+.delete-btn, .add-btn, .category-add-btn, select, option, button{
     cursor: pointer;
 }
 
