@@ -2,6 +2,164 @@
 @import 'variables';
 @import 'mixins';
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
+textarea:focus, input:focus, select:focus{
+    outline: none;
+}
+
+input, textarea {
+    background-color: unset;
+    border: none;
+    text-align: center;
+}
+
 .todo-container {
     @include font-text();
+    @include grid-container($columns: repeat(auto-fit, minmax(400px, 1fr)), $gap: 5px);
+    @include grid-align($js-content: center, $al-content: center, $js-items: center);
+    margin: 100px;
+
+    .column {
+        @include custom-box(100%, auto, white);
+        border: 1px solid #dddddd;
+        margin: 10px 0;
+
+        .todo-category {
+            @include custom-box(100%, 50px, $lightblack);
+            @include flex-box(center, center);
+            @include font-text($color: white);
+            text-align: center;
+            position: relative;
+
+            .category {
+                @include font-text($color: white);
+            }
+
+            img {
+                position: absolute;
+                right: 20px;
+                transform: rotate(45deg);
+            }
+        }
+
+        .card {
+            $L-margin: 20px;
+            @include custom-box(auto, auto, #e4e4e4);
+            text-align: center;
+            margin: $L-margin;
+            padding : 20px;
+            position: relative;
+
+            .title, .description {
+                $L-padding: 20px;
+                width: calc(100% - #{$L-padding} * 2);
+                padding: 0 $L-padding;
+            }
+
+            .title {
+                @include font-text(20px);
+            }
+
+            .description {
+                @include font-text();
+            }
+
+            .divider {
+                @include custom-box(100%, 1px, $lightblack);
+                margin: 10px 0;
+            }
+
+            img {
+                position: absolute;
+                right: 20px;
+            }
+        }
+    }
+}
+
+.modal-container {
+    @include custom-box(100vw, 100vh, rgba(0, 0, 0, 0.7), 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:9999;
+
+    .modal {
+        $L-width: 400px;
+        $L-height: 600px;
+        @include custom-box($L-width, $L-height, white, 5px);
+
+        position: absolute;
+        top: calc(50vh - #{$L-height} / 2);
+        left: calc(50vw - #{$L-width} / 2);
+
+        $L-margin: 10px;
+        select {
+            @include custom-box(calc(100% - #{$L-margin} * 2), 40px, white, 3px);
+            @include font-text(18px);
+            margin: $L-margin;
+            border: 1px solid $lightblack;
+            padding-left: 5px;
+        }
+
+        input {
+            @include custom-box(calc(100% - #{$L-margin} * 2 - 5px), 30px, white, 0);
+            @include font-text(20px);
+            border-bottom: 2px solid $lightblack;
+            margin: $L-margin;
+            padding-left: 5px;
+            text-align: unset;
+        }
+
+        textarea {
+            @include custom-box(calc(100% - #{$L-margin} * 2), 400px, white, 0);
+            @include font-text();
+            border: 1px solid $lightblack;
+            box-sizing: border-box;
+            margin: $L-margin;
+            padding: 7px;
+            text-align: unset;
+        }
+
+        .button-row {
+            @include flex-box(center, center);
+            position: absolute;
+            bottom: 0;
+            
+            button {
+                @include custom-box($L-width / 2, 50px, black, 0);
+                @include font-text($color: white);
+                
+                &:first-child {
+                    border: {
+                        radius: 0 0 0 5px;
+                        right: 0.5px solid white;
+                    }
+                }
+
+                &:last-child {
+                    border: {
+                        radius: 0 0 5px 0;
+                        left: 0.5px solid white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.delete-btn, .add-btn {
+    cursor: pointer;
+}
+
+.dp-none {
+    display: none;
+}
+
+.stop-scroll {
+    overflow: hidden;
 }

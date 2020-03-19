@@ -1,6 +1,21 @@
 @charset "utf-8";
 @import 'variables';
 
+@mixin grid-container($rows: unset, $columns: unset, $areas: unset, $gap: 0) {
+    display: grid;
+    grid-template-row: $rows;
+    grid-template-columns: $columns;
+    grid-template-areas: $areas;
+    grid-gap: $gap;
+}
+
+@mixin grid-align($js-content: unset, $al-content: unset, $js-items: unset, $al-items: unset) {
+    justify-content: $js-content;
+    align-content: $al-content;
+    justify-items: $js-items;
+    align-items: $al-items;
+}
+
 @mixin flex-box($align, $justify, $direction: row, $wrap: nowrap) {
     display: flex;
     align-items: $align;
