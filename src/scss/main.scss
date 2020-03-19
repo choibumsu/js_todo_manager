@@ -17,6 +17,33 @@ input, textarea {
     text-align: center;
 }
 
+nav {
+    $L-padding: 40px;
+    @include flex-box(center, space-between);
+    @include custom-box(calc(100vw - #{$L-padding} * 2), 60px, #20639B);
+    @include font-text(20px, $color: white);
+    padding: 0 $L-padding;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+
+    .input-wrapper {
+        @include custom-box(200px, 32px, white, 5px);
+        @include flex-box(center, space-around);
+        margin: 0; 
+
+        input {
+            @include custom-box(150px, 32px, unset, 5px);
+            margin: 0;
+            text-align: unset;
+        }
+    }
+
+    img {
+        transform: rotate(45deg);
+    }
+}
+
 .todo-container {
     @include font-text();
     @include grid-container($columns: repeat(auto-fit, minmax(400px, 1fr)), $gap: 5px);
