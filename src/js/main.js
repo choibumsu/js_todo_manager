@@ -109,7 +109,7 @@ const createCard = (titleValue, descriptionValue) => {
 
     const cardTitle = customCreateElem("input", "title", titleValue, "", "change", setLocalStorage);
     const divider = customCreateElem("div", "divider");
-    const cardDescription = customCreateElem("textarea", "description", "", descriptionValue, "change", autoTextarea);
+    const cardDescription = customCreateElem("textarea", "description", "", descriptionValue, "input", autoTextarea);
 
     card.appendChild(deleteBtn);
     card.appendChild(cardTitle);
@@ -121,10 +121,15 @@ const createCard = (titleValue, descriptionValue) => {
 
 const setCategoryTitle = (event) => {
     if (event.target.value == "") {
-        var column = event.target;
-        while (column.classList.contains("column") == false)
-            column = column.parentNode;
-        column.remove();
+        const deleteConfirm = confirm("정말 카테고리를 삭제하시겠습니까?")
+        if (deleteConfirm) {
+            var column = event.target;
+            while (column.classList.contains("column") == false)
+                column = column.parentNode;
+            column.remove();
+        } else {
+            event.target.focus();
+        }
     }
     setLocalStorage();
 }
@@ -164,9 +169,9 @@ const createColumn = (categoryTitle) => {
     return column;
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.onload = () => {
     var todoLists = localStorage.TODO_LISTS;
-    todoLists = JSON.parse(todoLists);
+    if (todoLists) todoLists = JSON.parse(todoLists);
 
     for (var category in todoLists) {
         const todoList = todoLists[category];
@@ -180,19 +185,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const todoContainer = document.querySelector(".todo-container");
         todoContainer.appendChild(column);
-
-        const saveBtn = document.querySelector(".save-btn");
-        saveBtn.addEventListener("click", saveCardHandler);
-
-        const modalCancelBtn = document.querySelector(".cancel-btn");
-        modalCancelBtn.addEventListener("click", closeModal);
-
-        const categoryAddBtn = document.querySelector(".category-add-btn");
-        categoryAddBtn.addEventListener("click", addCategoryHandler);
     }
-})
 
-window.onload = () => {
+    const saveBtn = document.querySelector(".save-btn");
+    saveBtn.addEventListener("click", saveCardHandler);
+
+    const modalCancelBtn = document.querySelector(".cancel-btn");
+    modalCancelBtn.addEventListener("click", closeModal);
+
+    const categoryAddBtn = document.querySelector(".category-add-btn");
+    categoryAddBtn.addEventListener("click", addCategoryHandler);
+
     const descriptions = document.querySelectorAll(".description");
     descriptions.forEach(description => {
         description.style.height = (description.scrollHeight) + "px";
