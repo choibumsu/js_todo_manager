@@ -19,7 +19,7 @@ input, textarea {
 nav {
     $L-padding: 40px;
     @include flex-box(center, space-between);
-    @include custom-box(calc(100vw - #{$L-padding} * 2), 60px, #20639B);
+    @include custom-box(calc(100vw - #{$L-padding} * 2), 60px, $nav-color, 0);
     @include font-text(20px, $color: white);
     padding: 0 $L-padding;
     position: fixed;
@@ -27,14 +27,13 @@ nav {
     top: 0;
 
     .input-wrapper {
-        @include custom-box(200px, 32px, white, 5px);
+        @include custom-box(220px, 36px, white, 5px);
         @include flex-box(center, space-around);
         margin: 0; 
 
         input {
-            @include custom-box(150px, 32px, unset, 5px);
+            @include custom-box(170px, 36px, unset, 5px);
             margin: 0;
-            text-align: unset;
         }
     }
 
@@ -75,7 +74,7 @@ nav {
 
         .card {
             $L-margin: 20px;
-            @include custom-box(auto, auto, #e4e4e4);
+            @include custom-box(auto, auto, $card-color);
             text-align: center;
             margin: $L-margin;
             padding : 20px;
@@ -140,7 +139,6 @@ nav {
             border-bottom: 2px solid $lightblack;
             margin: $L-margin;
             padding-left: 5px;
-            text-align: unset;
         }
 
         textarea {
@@ -150,7 +148,6 @@ nav {
             box-sizing: border-box;
             margin: $L-margin;
             padding: 7px;
-            text-align: unset;
         }
 
         .button-row {
@@ -159,20 +156,22 @@ nav {
             bottom: 0;
             
             button {
-                @include custom-box($L-width / 2, 50px, black, 0);
+                @include custom-box($L-width / 2, 50px, $deepblack, 0);
                 @include font-text($color: white);
-                
+
+                $L-radius: 5px;
+                $L-border-width: 0.5px;
                 &:first-child {
                     border: {
-                        radius: 0 0 0 5px;
-                        right: 0.5px solid white;
+                        radius: 0 0 0 $L-radius;
+                        right: $L-border-width solid white;
                     }
                 }
 
                 &:last-child {
                     border: {
-                        radius: 0 0 5px 0;
-                        left: 0.5px solid white;
+                        radius: 0 0 $L-radius 0;
+                        left: $L-border-width solid white;
                     }
                 }
             }
